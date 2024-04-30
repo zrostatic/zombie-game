@@ -1,35 +1,55 @@
 #include "raylib.h"
 #include "display.h"
-#include "logic.h"
 #include "player.h"
+#include "enemy.h"
+#include "bullet.h"
+#include "environment.h"
 
 int main() {
+
     SetConfigFlags(FLAG_VSYNC_HINT);
     InitWindow(SCREEN_HEIGHT, SCREEN_WIDTH, "RayLib - zombie-shooter");
     SetTargetFPS(144);
-    HideCursor();
+    // DisableCursor(); 
 
-    InitPlayer();
+    Background background; 
 
-    Texture2D guyTex = LoadTexture("resources/entities/guy.png");
-    Texture2D zombieTex = LoadTexture("resources/entities/zombie.png");
+    Player player;
+    Gun gun;
+    Bullet bullet; 
+    Enemy enemy;
 
-    Player player; 
+    InitBackground(&background);
+    InitPlayer(&player);
+    InitGun(&player, &gun);
+    InitBullet(&bullet, &gun);
+    InitEnemy(&enemy); 
+
+    player.has_weapon = true; 
 
     while (!WindowShouldClose()) {
-        MakeFullScreen();
-        PlayerControls();
 
+        MakeFullScreen(); 
+
+        PlayerMovement(&player, &gun);
+        PlayerCollision(&player); 
+
+        EnemyMovement(&enemy);
+        EnemyCollision(&enemy); 
+ 
         BeginDrawing();
-        ClearBackground(RAYWHITE);
-        
-      
-        DrawTexture(guyTex, player.position.x, player.position.y, WHITE);
-        DrawTexture(zombieTex, 400, 300, WHITE);
 
+            ClearBackground(RAYWHITE);
+            
+            DrawBackground(background);
+            DrawText("ZOMBIE-GAME", 0, 0, 30, RED); 
+
+            DrawPlayer(player);
+            DrawEnemy(enemy);
+
+            EquipGun(gun);
+            
         EndDrawing();
     }
-
     CloseWindow();
-    return 0;
 }

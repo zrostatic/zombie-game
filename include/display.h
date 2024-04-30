@@ -11,5 +11,6 @@
 #define REFRESH_RATE 144
 
 void MakeFullScreen(void);
+void ScaleAssets(void); 
 
 #endif

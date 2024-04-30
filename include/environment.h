@@ -1,10 +1,10 @@
 #ifndef ENVIRONMENT_H
 #define ENVIRONMENT_H 
 
-#define GRID_SIZE 8
-#define TILE_SIZE 32
-
 #include "raylib.h"
+#include "display.h"
+
+#define TILE_SIZE 120
 
 typedef struct{
 

@@ -42,7 +42,10 @@ int main() {
             ClearBackground(RAYWHITE);
             
             DrawBackground(background);
-            DrawText("ZOMBIE-GAME", 0, 0, 30, RED); 
+            
+            DrawText("ZOMBIE-GAME", 10, 10, 30, RED);
+            DrawText("HEALTH: ", 30, 60, 20, RAYWHITE); 
+            DrawText("WAVE: ", 800, 10, 20, RED); 
 
             DrawPlayer(player);
             DrawEnemy(enemy);

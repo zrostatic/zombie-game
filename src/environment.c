@@ -1,3 +1,4 @@
+#include "display.h"
 #include "environment.h"
 
 Background background; 
@@ -14,11 +15,9 @@ void InitBackground(Background *background) {
 
 void DrawBackground(Background background) { 
 
-    for (int y = background.position.y; y < GRID_SIZE; background.position.y++) {
-            for (int x = background.position.x; x < GRID_SIZE; background.position.x++) {
-                background.position.x = background.position.x * TILE_SIZE; 
-                background.position.y = background.position.y * TILE_SIZE; 
-                DrawTexture(background.backgroundTex, 0, 0, WHITE);
+        for (int y = 0; y < SCREEN_HEIGHT; y += TILE_SIZE) {
+            for (int x = 0; x < SCREEN_WIDTH; x += TILE_SIZE) {
+                DrawTexture(background.backgroundTex, x, y, WHITE);
             }
-    }
+        }
 }

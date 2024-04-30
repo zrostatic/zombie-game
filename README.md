@@ -7,3 +7,5 @@ a simple zombie game made in raylib using C
 ```make.ps1```
 
 ```zombie.game.exe```
+
+enjoy!

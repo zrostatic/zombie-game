@@ -1,9 +1,11 @@
+#include <math.h>
+
 #include "raylib.h"
 #include "player.h"
 #include "enemy.h"
-#include "bullet.h"
 
 Player player;
+
 
 void InitPlayer(Player *player) { 
 
@@ -43,10 +45,21 @@ void InitGun(Player *player, Gun *gun) {
 
 }
 
-void DrawGun(Gun gun) { 
+void DrawGun(Player player, Gun gun) { 
+        
+    Vector2 cursorPos = GetMousePosition();
+    float angle = atan2(cursorPos.y - gun.position.y, cursorPos.x - gun.position.x);
+    angle = angle * RAD2DEG;
 
-    DrawTextureRec(gun.gunTex, gun.gunRect, (Vector2){gun.position.x, gun.position.y}, WHITE);
+    Rectangle destRect = {
+        gun.position.x, 
+        gun.position.y, 
+        gun.gunRect.width,
+        gun.gunRect.height
+    };
 
+    Vector2 origin = {gun.gunRect.width / 800, gun.gunRect.height / 800}; 
+    DrawTexturePro(gun.gunTex, gun.gunRect, destRect, origin, angle, WHITE);
 
 }
 
@@ -57,49 +70,30 @@ void EquipGun(Gun gun){
     }
 
     if(player.has_weapon) {
-        DrawGun(gun);
+        DrawGun(player, gun);
+        player.has_weapon = true; 
     }
 }
 
 void PlayerMovement(Player *player, Gun *gun) { 
     
-    if(IsKeyDown(KEY_RIGHT))
+    if ((IsKeyDown(KEY_RIGHT)) || (IsKeyDown(KEY_D)))
     player->position.x += player->speed;
     gun->position.x = player->position.x + 60; 
     gun->position.y = player->position.y + 35;
 
-    if(IsKeyDown(KEY_LEFT))
+    if ((IsKeyDown(KEY_LEFT)) || (IsKeyDown(KEY_A))) 
     player->position.x -= player->speed;
     gun->position.x = player->position.x + 60; 
     gun->position.y = player->position.y + 35;
     
-    if(IsKeyDown(KEY_DOWN))
+    if ((IsKeyDown(KEY_DOWN)) || (IsKeyDown(KEY_S)))
     player->position.y += player->speed;
     gun->position.x = player->position.x + 60; 
     gun->position.y = player->position.y + 35; 
     
-    if(IsKeyDown(KEY_UP))
+    if((IsKeyDown(KEY_UP) || (IsKeyDown(KEY_W))))
     player->position.y -= player->speed;
-    gun->position.x = player->position.x + 60; 
-    gun->position.y = player->position.y + 35;
-
-    if(IsKeyDown(KEY_D))
-    player->position.x += player->speed;
-    gun->position.x = player->position.x + 60; 
-    gun->position.y = player->position.y + 35;
-
-    if(IsKeyDown(KEY_A))
-    player->position.x -= player->speed;
-    gun->position.x = player->position.x + 60; 
-    gun->position.y = player->position.y + 35;
-    
-    if(IsKeyDown(KEY_S))
-    player->position.y += player->speed; 
-    gun->position.x = player->position.x + 60; 
-    gun->position.y = player->position.y + 35;
-
-    if(IsKeyDown(KEY_W))
-    player->position.y -= player->speed; 
     gun->position.x = player->position.x + 60; 
     gun->position.y = player->position.y + 35;
 
@@ -119,12 +113,4 @@ void PlayerCollision(Player *player) {
         if (player->position.y > GetScreenHeight() - player->height) {
             player->position.y = GetScreenHeight() - player->height;
         }
-}
-
-
-void PlayerShoot(){
-
-    
-
-
 }

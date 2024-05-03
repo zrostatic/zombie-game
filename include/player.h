@@ -27,6 +27,7 @@ typedef struct{
     Rectangle gunRect; 
     Texture2D gunTex;
     Vector2 position; 
+    float rotation; 
 
     char name; 
 
@@ -38,7 +39,7 @@ void InitGun(Player *player, Gun *gun);
 
 // Draw
 void DrawPlayer(Player player);
-void DrawGun(Gun gun);
+void DrawGun(Player player, Gun gun);
 
 // Controls 
 void PlayerMovement(Player *player, Gun *gun); 

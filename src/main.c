@@ -1,57 +1,54 @@
 #include "raylib.h"
 #include "display.h"
+#include "cursor.h"
 #include "player.h"
 #include "enemy.h"
-#include "bullet.h"
 #include "environment.h"
+
 
 int main() {
 
     SetConfigFlags(FLAG_VSYNC_HINT);
     InitWindow(SCREEN_HEIGHT, SCREEN_WIDTH, "RayLib - zombie-shooter");
     SetTargetFPS(144);
-    // DisableCursor(); 
+    DisableCursor(); 
 
-    Background background; 
-
-    Player player;
+    Cursor cursor; 
+    Player player; 
     Gun gun;
-    Bullet bullet; 
     Enemy enemy;
 
-    InitBackground(&background);
+    InitCursor(&cursor);
     InitPlayer(&player);
     InitGun(&player, &gun);
-    InitBullet(&bullet, &gun);
     InitEnemy(&enemy); 
 
-    player.has_weapon = true; 
+    player.has_weapon = false; 
 
     while (!WindowShouldClose()) {
 
         MakeFullScreen(); 
 
         PlayerMovement(&player, &gun);
-        PlayerCollision(&player); 
-
+        PlayerCollision(&player);
+ 
         EnemyMovement(&enemy);
-        EnemyCollision(&enemy); 
+        EnemyCollision(&enemy);
  
         BeginDrawing();
 
             ClearBackground(RAYWHITE);
-            
-            DrawBackground(background);
-            
+                        
             DrawText("ZOMBIE-GAME", 10, 10, 30, RED);
-            DrawText("HEALTH: ", 30, 60, 20, RAYWHITE); 
-            DrawText("WAVE: ", 800, 10, 20, RED); 
+            DrawText("HEALTH: ", 30, 60, 30, RED); 
+            DrawText("WAVE: ", 800, 10, 30, RED); 
 
+            DrawCursor(cursor);
             DrawPlayer(player);
             DrawEnemy(enemy);
 
             EquipGun(gun);
-            
+
         EndDrawing();
     }
     CloseWindow();

@@ -4,8 +4,8 @@
 #include <stdio.h>
 
 // Screen Resolution 
-#define SCREEN_HEIGHT 960
-#define SCREEN_WIDTH 720
+#define SCREEN_HEIGHT 1024
+#define SCREEN_WIDTH 768
 
 // Refresh Rate
 #define REFRESH_RATE 144

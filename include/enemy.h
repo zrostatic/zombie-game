@@ -3,6 +3,7 @@
 
 #include "raylib.h"
 #include "display.h"
+#include "bullet.h"
 
 // Constants
 
@@ -14,7 +15,9 @@ typedef struct {
  
     int height; 
     int width; 
-    float speed; 
+    float speed;
+    int health; 
+
     
 } Enemy;
 
@@ -23,5 +26,7 @@ void DrawEnemy(Enemy enemy);
 
 void EnemyCollision(Enemy *enemy);
 void EnemyMovement(Enemy *enemy);
+
+// void EnemyHurt(Enemy enemy); 
 
 #endif 

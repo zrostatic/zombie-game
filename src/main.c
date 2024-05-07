@@ -3,53 +3,58 @@
 #include "cursor.h"
 #include "player.h"
 #include "enemy.h"
+#include "bullet.h"
 #include "environment.h"
-
 
 int main() {
 
     SetConfigFlags(FLAG_VSYNC_HINT);
-    InitWindow(SCREEN_HEIGHT, SCREEN_WIDTH, "RayLib - zombie-shooter");
+    InitWindow(SCREEN_HEIGHT, SCREEN_WIDTH, "zombie-game");
     SetTargetFPS(144);
-    DisableCursor(); 
+    DisableCursor();
 
-    Cursor cursor; 
-    Player player; 
+    Cursor cursor;
+    Player player;
     Gun gun;
+    Bullet bullets[MAX_BULLETS]; 
     Enemy enemy;
 
     InitCursor(&cursor);
     InitPlayer(&player);
+    InitBullet(gun, bullets); 
     InitGun(&player, &gun);
-    InitEnemy(&enemy); 
-
-    player.has_weapon = false; 
+    InitEnemy(&enemy);
 
     while (!WindowShouldClose()) {
 
         MakeFullScreen(); 
 
+        DrawBullet(bullets);
+        UpdateGunRotation(player, &gun);
+
         PlayerMovement(&player, &gun);
         PlayerCollision(&player);
- 
+        FireBullet(player, gun, bullets);
+
+        UpdateGunRotation(player, &gun);
+        UpdateBullet(player, bullets);
+
         EnemyMovement(&enemy);
         EnemyCollision(&enemy);
- 
+
         BeginDrawing();
+        ClearBackground(RAYWHITE);
 
-            ClearBackground(RAYWHITE);
-                        
-            DrawText("ZOMBIE-GAME", 10, 10, 30, RED);
-            DrawText("HEALTH: ", 30, 60, 30, RED); 
-            DrawText("WAVE: ", 800, 10, 30, RED); 
+        // DrawUI();
 
-            DrawCursor(cursor);
-            DrawPlayer(player);
-            DrawEnemy(enemy);
+        DrawPlayer(player);
+        DrawEnemy(enemy);
+        DrawCursor(cursor);
 
-            EquipGun(gun);
+        CheckEquipGun(&player, &gun);
 
         EndDrawing();
     }
+
     CloseWindow();
 }

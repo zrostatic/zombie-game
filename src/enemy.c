@@ -16,7 +16,7 @@ void InitEnemy(Enemy *enemy) {
     enemy->enemyRect.height = 96; 
     enemy->enemyRect.width = 96; 
 
-    enemy->enemyTex = LoadTexture("resources/entities/zombie.png");
+    enemy->enemyTex = LoadTexture("resources/entities/zombie/zombie.png");
 
 }
 
@@ -45,9 +45,8 @@ void EnemyCollision(Enemy *enemy) {
 }
 
 void EnemyMovement(Enemy *enemy) { 
-
+    
     enemy->position.x -= enemy->speed; 
 
 }
-
 

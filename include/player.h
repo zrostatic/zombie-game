@@ -43,7 +43,8 @@ void DrawGun(Player player, Gun gun);
 
 // Controls 
 void PlayerMovement(Player *player, Gun *gun); 
-void EquipGun(Gun gun);
+bool CheckEquipGun(Player *player, Gun *gun);
+void UpdateGunRotation(Player player, Gun *gun);
 
 // Collision
 void PlayerCollision(Player *player);

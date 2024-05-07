@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include "enemy.h"
 #include "cursor.h"
 
 Cursor cursor; 
@@ -15,7 +16,8 @@ void InitCursor(Cursor *cursor) {
 
 void DrawCursor(Cursor cursor){
 
-    DrawTextureRec(cursor.cursorTex, cursor.cursorRect, GetMousePosition(), SKYBLUE); 
+    DrawTextureRec(cursor.cursorTex, cursor.cursorRect, GetMousePosition(), WHITE); 
 
 }
+
 

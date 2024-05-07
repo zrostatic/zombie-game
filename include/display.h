@@ -10,7 +10,13 @@
 // Refresh Rate
 #define REFRESH_RATE 144
 
+// TO-DO: make screens... 
+
+
 void MakeFullScreen(void);
-void ScaleAssets(void); 
+
+void DrawUI(void);
+void UpdateUI(void);
+
 
 #endif

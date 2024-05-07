@@ -6,7 +6,6 @@
 
 Player player;
 
-
 void InitPlayer(Player *player) { 
 
     player->position.x = 30; 
@@ -22,7 +21,7 @@ void InitPlayer(Player *player) {
     player->playerRect.y = 0; 
     player->playerRect.height = 96;
     player->playerRect.width = 96;
-    player->playerTex = LoadTexture("resources/entities/guy.png");
+    player->playerTex = LoadTexture("resources/entities/guy/guy.png");
      
 }
 
@@ -47,11 +46,11 @@ void InitGun(Player *player, Gun *gun) {
 
 void DrawGun(Player player, Gun gun) { 
         
-    Vector2 cursorPos = GetMousePosition();
-    float angle = atan2(cursorPos.y - gun.position.y, cursorPos.x - gun.position.x);
+    Vector2 gun_cursorPos = GetMousePosition();
+    float angle = atan2(gun_cursorPos.y - gun.position.y, gun_cursorPos.x - gun.position.x);
     angle = angle * RAD2DEG;
 
-    Rectangle destRect = {
+    Rectangle gun_destRect = {
         gun.position.x, 
         gun.position.y, 
         gun.gunRect.width,
@@ -59,20 +58,23 @@ void DrawGun(Player player, Gun gun) {
     };
 
     Vector2 origin = {gun.gunRect.width / 800, gun.gunRect.height / 800}; 
-    DrawTexturePro(gun.gunTex, gun.gunRect, destRect, origin, angle, WHITE);
+    DrawTexturePro(gun.gunTex, gun.gunRect, gun_destRect, origin, angle, WHITE);
 
 }
 
-void EquipGun(Gun gun){
-
+bool CheckEquipGun(Player *player, Gun *gun) {
     if (IsKeyPressed(KEY_ONE)) {
-        player.has_weapon = !player.has_weapon; 
+        player->has_weapon = !player->has_weapon; 
     }
+    if (player->has_weapon) {
+        DrawGun(*player, *gun); 
+        return true; 
+    }
+    return false; 
+}
 
-    if(player.has_weapon) {
-        DrawGun(player, gun);
-        player.has_weapon = true; 
-    }
+void UpdateGunRotation(Player player, Gun *gun) {
+    gun->rotation = atan2(GetMouseY() - player.position.y, GetMouseX() - player.position.x) * RAD2DEG;
 }
 
 void PlayerMovement(Player *player, Gun *gun) { 

@@ -11,3 +11,13 @@ void MakeFullScreen() {
         ToggleFullscreen(); 
     } 
 }
+
+void DrawUI() {
+
+    DrawText("ZOMBIE-GAME", 10, 10, 30, RED);
+    DrawText("HEALTH: ", 30, 60, 30, GREEN); 
+    DrawText("WAVE: ", 800, 10, 30, SKYBLUE); 
+
+}
+
+
